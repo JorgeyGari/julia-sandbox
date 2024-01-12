@@ -35,7 +35,17 @@ end
 # while loops (nothing new here)
 i = 1
 while i ≤ 10
+    global i    # To avoid ambiguity, Julia requires the iteration variable to be explicitly declared as the global variable `i`
     println(i)
     i += 1
 end
-i
+println("i = $i")
+
+# A better way to do this is to create a local scope with `let`.
+let i = 1
+    while i ≤ 10
+        println(i)
+        i += 1
+    end
+    i
+end
