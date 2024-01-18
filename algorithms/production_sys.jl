@@ -36,7 +36,7 @@ function can_apply_P1(string)
     return false
 end
 
-function apply_P1!(string)
+function apply_P1(string)
     for i in 1:length(string)-1
         if string[i] == '%' && string[i+1] == '%'
             string = string[1:i-1] * "*" * string[i+2:end]
@@ -56,7 +56,7 @@ function can_apply_P2(string)
     return false
 end
 
-function apply_P2!(string)
+function apply_P2(string)
     for i in 1:length(string)-1
         if string[i] == '*' && string[i+1] == '%'
             string = string[1:i] * string[i+2:end]
@@ -75,7 +75,7 @@ function can_apply_P3(string)
     return false
 end
 
-function apply_P3!(string)
+function apply_P3(string)
     for i in 1:length(string)-1
         if string[i] == '*' && isletter(string[i+1])
             string = string[1:i-1] * string[i+1] * "*" * string[i+2:end]
@@ -96,7 +96,7 @@ function can_apply_P4(string)
     return false
 end
 
-function apply_P4!(string)
+function apply_P4(string)
     for c in string
         if c == '*'
             string = replace(string, c => "")
@@ -117,7 +117,7 @@ function can_apply_P5(string)
     return false
 end
 
-function apply_P5!(string)
+function apply_P5(string)
     for i in 1:length(string)-2
         if string[i] == '%' && isletter(string[i+1]) && isletter(string[i+2])
             string = string[1:i-1] * string[i+2] * "%" * string[i+1] * string[i+3:end]
@@ -128,7 +128,7 @@ function apply_P5!(string)
 end
 
 # P6: null → *%
-function apply_P6!(string)
+function apply_P6(string)
     string = "%" * string
     return string
 end
@@ -142,27 +142,27 @@ end
 
 =#
 
-function apply_rules!(string)
+function apply_rules(string)
     rule = ""
     while !halt
         if can_apply_P1(string)
             rule = "P1"
-            string = apply_P1!(string)
+            string = apply_P1(string)
         elseif can_apply_P2(string)
             rule = "P2"
-            string = apply_P2!(string)
+            string = apply_P2(string)
         elseif can_apply_P3(string)
             rule = "P3"
-            string = apply_P3!(string)
+            string = apply_P3(string)
         elseif can_apply_P4(string)
             rule = "P4"
-            string = apply_P4!(string)
+            string = apply_P4(string)
         elseif can_apply_P5(string)
             rule = "P5"
-            string = apply_P5!(string)
+            string = apply_P5(string)
         else
             rule = "P6"
-            string = apply_P6!(string)
+            string = apply_P6(string)
         end
         println("$string\t\t($rule)")
     end
@@ -172,7 +172,7 @@ end
 function main()
     println("Enter a string to be transformed:")
     string = readline()
-    string = apply_rules!(string)
+    string = apply_rules(string)
     println("The transformed string is: $string")
 end
 
